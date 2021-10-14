@@ -11,6 +11,9 @@ const Text = ({ good, neutral, bad }) => (
     good {good}<br></br>
     neutral {neutral}<br></br>
     bad {bad}<br></br>
+    all {good + neutral + bad}<br></br>
+    average {(good * 1 + neutral * 0 + bad * (-1)) / (good + neutral + bad)}<br></br>
+    positive {(good) * 100 / (good + neutral + bad)} %
   </p>
 )
 
