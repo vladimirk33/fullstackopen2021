@@ -7,6 +7,7 @@ const Button = (props) => (
 )
 
 const App = () => {
+
   const anecdotes = [
     'If it hurts, do it more often',
     'Adding manpower to a late software project makes it later!',
@@ -19,7 +20,9 @@ const App = () => {
 
   const arrLength = anecdotes.length;
   const [selected, setSelected] = useState(0);
-  const [votes, setVotes] = useState(new Uint8Array(arrLength))
+  const [votes, setVotes] = useState(new Uint8Array(arrLength));
+
+  const mostVoted = votes.indexOf(Math.max(...votes));
 
   const generateRandomIndex = () => {
     let tempIndex = Math.floor(Math.random() * arrLength);
@@ -37,6 +40,7 @@ const App = () => {
 
   return (
     <div>
+      <h1>Anecdote of the day</h1>
       {anecdotes[selected]}
       <div>
         has {votes[selected]} votes
@@ -45,6 +49,9 @@ const App = () => {
         <Button handleClick={voteForAnecdote} text="vote"/>
         <Button handleClick={generateRandomIndex} text="next anecdote"/>
       </div>
+      <h1>Anecdote with most votes</h1>
+      {anecdotes[mostVoted]}<br></br>
+      has {votes[mostVoted]} votes
     </div>
   )
 }
