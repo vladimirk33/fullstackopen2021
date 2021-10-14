@@ -1,33 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
 
-const Hello = (props) => {
-  return (
-    <div>
-      <p>
-        Hello {props.name}, you are {props.age} years old
-      </p>
-    </div>
-  )
-}
+const Display = ({ counter }) => <div>{counter}</div>
+
+const Button = ({ onClick, text }) => (
+  <button onClick={onClick}>
+    {text}
+  </button>
+)
 
 const App = () => {
-  const name = 'Peter'
-  const age = 10
+  const [left, setLeft] = useState(0)
+  const [right, setRight] = useState(0)
+  const [allClicks, setAll] = useState([])
 
-  return (
-    <>
-      <h1>Greetings</h1>
-      <Hello name="Maya" age={26 + 10} />
-      <Hello name={name} age={age} />
-      <Footer />
-    </>
-  )
-}
+  const handleLeftClick = () => {
+    setAll(allClicks.concat('L'))
+    setLeft(left + 1)
+  }
 
-const Footer = () => {
+  const handleRightClick = () => {
+    setAll(allClicks.concat('R'))
+    setRight(right + 1)
+  }
+
   return (
     <div>
-      greeting app created by <a href="https://github.com/mluukkai">mluukkai</a>
+      {left}
+      <button onClick={handleLeftClick}>left</button>
+      <button onClick={handleRightClick}>right</button>
+      {right}
+      <p>{allClicks.join(' ')}</p>
     </div>
   )
 }
