@@ -1,3 +1,5 @@
+import Course from './components/Course'
+
 const App = () => {
   const course = {
     id: 1,
@@ -17,9 +19,11 @@ const App = () => {
         name: 'State of a component',
         exercises: 14,
         id: 3
-      }
+      },
     ]
   }
 
   return <Course course={course} />
 }
+
+export default App;
