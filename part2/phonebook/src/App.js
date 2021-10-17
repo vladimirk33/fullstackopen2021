@@ -1,4 +1,7 @@
 import React, { useState } from 'react'
+import Filter from './components/Filter'
+import PersonForm from './components/PersonForm'
+import Persons from './components/Persons'
 
 const App = () => {
   const [ persons, setPersons ] = useState([
@@ -7,34 +10,8 @@ const App = () => {
     { name: 'Dan Abramov', number: '12-43-234345', id: 3 },
     { name: 'Mary Poppendieck', number: '39-23-6423122', id: 4 }
   ])
-  const [ newName, setNewName ] = useState('')
-  const [ newNumber, setNewNumber ] = useState('')
+
   const [ newSearchingName, setNewSearchingName ] = useState('')
-
-  const addPerson = (event) => {
-    event.preventDefault()
-    if (persons.map(person => person.name).includes(newName)) {
-      window.alert(`${newName} is already added to phonebook`)
-    } else if (persons.map(person => person.number).includes(newNumber)) {
-      window.alert(`Phone number ${newNumber} is already added to phonebook`)
-    } else {
-      const personObject = {
-        name: newName,
-        number: newNumber,
-      }
-      setPersons(persons.concat(personObject))
-    }
-    setNewName('')
-    setNewNumber('')
-  }
-
-  const handleNameChange = (event) => {
-    setNewName(event.target.value)
-  }
-
-  const handleNumberChange = (event) => {
-    setNewNumber(event.target.value)
-  }
 
   const handleSearchingNameChange = (event) => {
     setNewSearchingName(event.target.value)
@@ -43,25 +20,11 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-      filter shown with
-      <input value={newSearchingName} onChange={handleSearchingNameChange}/>
-      <h2>add a new</h2>
-      <form onSubmit={addPerson}>
-        <div>name: <input value={newName} onChange={handleNameChange}/></div>
-        <div>number: <input value={newNumber} onChange={handleNumberChange}/></div>
-        <div><button type="submit">add</button></div>
-      </form>
-      <h2>Numbers</h2>
-      {newSearchingName === ""
-        ? persons.map(person =>
-            <p key={person.name}>{person.name} {person.number}</p>
-          )
-        : persons.filter(person =>
-            person.name.toLowerCase().includes(newSearchingName.toLowerCase())
-          ).map(person =>
-            <p key={person.name}>{person.name} {person.number}</p>
-          )
-      }
+      <Filter text="filter shown with" newSearchingName={newSearchingName} handleSearchingNameChange={handleSearchingNameChange} />
+      <h3>add a new</h3>
+      <PersonForm persons={persons} setPersons={setPersons} />
+      <h3>Numbers</h3>
+      <Persons persons={persons} newSearchingName={newSearchingName} />
     </div>
   )
 }
