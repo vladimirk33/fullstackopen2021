@@ -5,9 +5,9 @@ import Country from './components/Country'
 
 function App() {
 
-  const [countries, setCountries] = useState([])
+  const [ countries, setCountries ] = useState([])
 
-  useEffect(() => {
+  useEffect( () => {
     axios
       .get('https://restcountries.com/v3.1/all')
       .then(response => {
@@ -53,7 +53,7 @@ function App() {
       </div>
     </div>
   )
-  
+
 }
 
 export default App;
