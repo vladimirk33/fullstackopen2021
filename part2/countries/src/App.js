@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import Filter from './components/Filter'
-import Countries from './components/Countries'
+import CountryList from './components/CountryList'
+import Country from './components/Country'
 
 function App() {
+
   const [countries, setCountries] = useState([])
 
   useEffect(() => {
@@ -20,14 +21,39 @@ function App() {
     setNewSearchingCountry(event.target.value)
   }
 
+  const countriesToShow =
+    newSearchingCountry === ""
+      ? []
+      : countries.filter(country =>
+          country.name.common.toLowerCase().includes(newSearchingCountry.toLowerCase())
+        )
+
+  if (countriesToShow.length === 1) {
+    return (
+      <div>
+        find countries <input onChange={handleSearchingCountry} />
+        <div>
+          <Country country={countriesToShow[0]}/>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div>
-      <Filter text="find countries" newSearchingCountry={newSearchingCountry} handleSearchingCountry={handleSearchingCountry} />
-      {/*<h3>add a new</h3>
-      <PersonForm persons={persons} setPersons={setPersons} />*/}
-      <Countries countries={countries} newSearchingCountry={newSearchingCountry} />
+      find countries <input onChange={handleSearchingCountry} />
+      <div>
+        {countriesToShow.length > 10
+          ? "Too many matches, specify another filter"
+          : countriesToShow.map(country => (
+            <div key={country.name.common}>
+              <CountryList country={country} />
+            </div>
+          ))}
+      </div>
     </div>
-  );
+  )
+  
 }
 
 export default App;
