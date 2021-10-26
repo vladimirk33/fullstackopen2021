@@ -24,11 +24,11 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-      <Filter text="filter shown with" newSearchingName={newSearchingName} handleSearchingNameChange={handleSearchingNameChange} />
+      <Filter text="filter shown with " newSearchingName={newSearchingName} handleSearchingNameChange={handleSearchingNameChange} />
       <h3>add a new</h3>
       <PersonForm persons={persons} setPersons={setPersons} />
       <h3>Numbers</h3>
-      <Persons persons={persons} newSearchingName={newSearchingName} />
+      <Persons persons={persons} newSearchingName={newSearchingName} setPersons={setPersons}/>
     </div>
   )
 }
