@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import axios from 'axios'
+import Data from './Data'
 
 const PersonForm = ({ persons, setPersons }) => {
 
@@ -17,8 +17,8 @@ const PersonForm = ({ persons, setPersons }) => {
         name: newName,
         number: newNumber,
       }
-      axios
-        .post('http://localhost:3001/persons', personObject)
+      Data
+        .create(personObject)
         .then(response => {
           setPersons(persons.concat(response.data))
         })
