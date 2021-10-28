@@ -1,15 +1,6 @@
 import React from 'react'
-import Data from './Data'
 
-const Persons = ({ persons, newSearchingName, setPersons }) => {
-
-  const handleDelete = (id, person) => {
-    if (window.confirm(`Delete ${person.name}?`)) {
-      Data
-      .remove(person)
-      setPersons(persons.filter(person => person.id !== id))
-    }
-  }
+const Persons = ({ persons, newSearchingName, handleDelete }) => {
 
   return (
     <div>
@@ -29,6 +20,7 @@ const Persons = ({ persons, newSearchingName, setPersons }) => {
         }
     </div>
   )
+  
 }
 
 export default Persons
