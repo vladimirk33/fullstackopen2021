@@ -55,7 +55,15 @@ const App = () => {
             });
             setTimeout(() => setMessage(null), 5000);
           })
-      }
+          .catch((error) => {
+            setPersons(persons.filter((person) => person.name !== changedPersonObject.name));
+            setMessage({
+              text: `${changedPersonObject.name} has already been deleted from the server`,
+              class: "error",
+            });
+            setTimeout(() => setMessage(null), 5000);
+          })
+        }
     } else if (persons.map(person => person.number).includes(newNumber)) {
       window.alert(`Phone number ${newNumber} is already added to phonebook`)
     } else {
@@ -70,14 +78,14 @@ const App = () => {
           setMessage({
             text: `Added ${personObject.name}`,
             class: "success",
-          });
+          })
           setTimeout(() => setMessage(null), 5000);
         })
         .catch((error) => {
-          setMessage({ text: error.response.data.error, type: "error" });
+          setMessage({ text: error.response.data.error, class: "error" });
           setTimeout(() => setMessage(null), 5000);
           console.error(error);
-        });
+        })
     }
     setNewName('')
     setNewNumber('')
@@ -87,7 +95,13 @@ const App = () => {
     if (window.confirm(`Delete ${person.name}?`)) {
       Data
       .remove(person)
+      .catch(error => {
+        setMessage({ text: `${error.response.data.error}`, class: 'error' })
+      })
       setPersons(persons.filter(person => person.id !== id))
+      setTimeout(() => {
+        setMessage(null)
+      }, 5000)
     }
   }
 
